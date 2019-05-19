@@ -31,10 +31,10 @@ class FCM
   #    ["4sdsx", "8sdsd"], # registration_ids
   #    { "notification": { "title": "Portugal vs. Denmark", "text": "5 to 1" }, "to" : "bk3RNwTe3HdFQ3P1..." }
   # )
-  def send_notification(registration_ids, options = {})
+  def send_notification(registration_ids, options = {}, extra_headers = {})
     post_body = build_post_body(registration_ids, options)
 
-    for_uri(BASE_URI) do |connection|
+    for_uri(BASE_URI, extra_headers) do |connection|
       response = connection.post('/fcm/send', post_body.to_json)
       build_response(response, registration_ids)
     end
